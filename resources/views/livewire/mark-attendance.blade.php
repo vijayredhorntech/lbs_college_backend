@@ -103,6 +103,8 @@
                     </th>
                     <th class="border-[1px] border-primaryDark text-[15px] px-4 text-left py-1.5">
                         Student
+                    </th> <th class="border-[1px] border-primaryDark text-[15px] px-4 text-left py-1.5">
+                        Roll No
                     </th>
                     <th class="border-[1px] border-primaryDark text-[15px] px-4 text-left py-1.5">
                         Attendance
@@ -114,6 +116,7 @@
                             <input type="checkbox" wire:model="selectedStudents" value="{{ $student->id }}">
                         </td>
                         <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->full_name }}</td>
+                        <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->uni_roll_number }}</td>
                         <td class=" text-{{ $attendance[$student->id] === 'Present' ? 'green' : 'red' }} border-[1px] border-primaryDark px-4 py-1.5 font-semibold">
                             {{ $attendance[$student->id] }}
                             <div class="flex gap-2">

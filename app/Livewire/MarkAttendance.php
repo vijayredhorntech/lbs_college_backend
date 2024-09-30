@@ -36,9 +36,9 @@ class MarkAttendance extends Component
 //                ->where('lecture_date', $this->attendanceDate);
 //        }])->get();
         foreach ($this->students as $student) {
-            $this->attendance[$student->id] = $student->attendance->first() ? ($student->attendance->first()->attended ? 'Present' : 'Absent') : 'Absent';
-            $this->presentCount += $student->attendance->first() ? ($student->attendance->first()->attended ? 1 : 0) : 0;
-            $this->absentCount += $student->attendance->first() ? ($student->attendance->first()->attended ? 0 : 1) : 1;
+            $this->attendance[$student->id] = $student->attendance->first() ? ($student->attendance->first()->attended ? 'Present' : 'Absent') : 'Present';
+            $this->presentCount += $student->attendance->first() ? ($student->attendance->first()->attended ? 1 : 0) : 1;
+            $this->absentCount += $student->attendance->first() ? ($student->attendance->first()->attended ? 0 : 1) : 0;
         }
 
     }
