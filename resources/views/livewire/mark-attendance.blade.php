@@ -79,6 +79,16 @@
 
             <!-- Bulk actions -->
             <div class="w-full flex justify-end lg:flex-row md:flex-row sm:flex-row flex-col lg:gap-4 md:gap-4 sm:gap-4 gap-2 mt-4">
+                <div class="w-full flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-2">
+                        <input type="text" wire:model="search" placeholder="Search by student name or roll number"
+                               class="border border-gray-300 rounded px-4 py-2 text-sm text-primaryDark italic w-64">
+                        <button wire:click="searchStudents"
+                                class="bg-primaryDark text-white font-semibold px-4 py-2 rounded-md shadow-md hover:bg-primaryDark/80 transition duration-150 ease-in-out">
+                            Search
+                        </button>
+                    </div>
+                </div>
                 <button wire:click="markAllExceptSelected('Present')"
                         class=" lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-md border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
                     Mark All Present Except Selected

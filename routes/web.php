@@ -74,7 +74,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/classes', [FacultyController::class, 'classesList'])->name('faculty-classes-list');
         Route::get('/class/form/{facultyClass?}', \App\Livewire\FacultyClassForm::class)->name('faculty-class-form');
         Route::get('/class/{facultyClass}/attendance', \App\Livewire\MarkAttendance::class)->name('faculty-mark-attendance');
-
+        Route::get('/class/{facultyClass}/attendance/report', \App\Livewire\AttendanceReport::class)->name('faculty-attendance-report');
     });
     Route::group(['prefix' => 'management'], function () {
         Route::group(['prefix' => 'course'], function () {
