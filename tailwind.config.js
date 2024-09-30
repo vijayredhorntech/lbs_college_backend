@@ -31,7 +31,6 @@ export default {
                 'red': '#ff0000',
                 'green': '#008000FF',
                 'blue': '#0000ff',
-                'yellow': '#ffff00',
             },
             boxShadow: {
                 DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.02)',
