@@ -1,7 +1,13 @@
-<div class="p-6 bg-white shadow-md rounded-lg">
-    <form wire:submit.prevent="store" class="space-y-6">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Add Student</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class=" bg-white shadow-md rounded-lg p-6 relative">
+    <div class="w-max h-max absolute top-2 right-4">
+        <button class="w-max h-max" wire:click="$dispatch('closeModal')"><i class="fa fa-xmark"></i></button>
+    </div>
+    <form wire:submit.prevent="store" class="space-y-2 ">
+
+        <div class="w-full flex justify-between items-center">
+           <span class="text-xl font-bold text-gray-800 mb-4">Add Student</span>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
             <div>
                 <label for="name" class="text-sm font-semibold text-gray-600">Name</label>
                 <input type="text" wire:model="name" id="name" name="name" placeholder="Enter student name"
@@ -16,8 +22,7 @@
                 @error('roll_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
         </div>
-        <button type="submit"
-                class="w-full bg-primaryDark text-white font-semibold py-3 rounded-md shadow-md hover:bg-primaryDark/80 transition duration-150 ease-in-out">
+        <button type="submit" class="w-full bg-primaryDark text-white font-semibold py-3 rounded-md shadow-md hover:bg-primaryDark/80 transition duration-150 ease-in-out">
             Submit
         </button>
     </form>
@@ -28,15 +33,13 @@
         </div>
     @endif
 
-    <button wire:click="$dispatch('closeModal')">No, do not delete</button>
 
     <div class="mt-6">
         <h3 class="text-lg font-semibold text-gray-700">Upload Students Excel</h3>
         <input type="file" wire:model="excelFile" accept=".xlsx,.xls"
-               class="border border-gray-300 rounded px-4 py-3 text-sm text-gray-700 w-full focus:ring focus:ring-primaryDark transition duration-150 ease-in-out"/>
+               class="mt-4 border border-gray-300 rounded px-4 py-3 text-sm text-gray-700 w-full focus:ring focus:ring-primaryDark transition duration-150 ease-in-out"/>
         @error('excelFile') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-        <button wire:click="upload"
-                class="mt-2 w-full bg-primaryDark text-white font-semibold py-3 rounded-md shadow-md hover:bg-primaryDark/80 transition duration-150 ease-in-out">
+        <button wire:click="upload" class="mt-2 w-full bg-primaryDark text-white font-semibold py-3 rounded-md shadow-md hover:bg-primaryDark/80 transition duration-150 ease-in-out">
             Upload
         </button>
     </div>

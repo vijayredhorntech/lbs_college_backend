@@ -58,6 +58,7 @@ class FacultyClassStudentForm extends ModalComponent
             'excelFile' => 'required|file|mimes:xlsx,xls', // Validate file type
         ]);
 
+        dd($this->excelFile);
         try {
             // Import the students from the Excel file
             Excel::import(new StudentsImport($this->classId), $this->excelFile);

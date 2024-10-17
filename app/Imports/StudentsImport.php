@@ -16,6 +16,7 @@ class StudentsImport implements ToModel
 
     public function model(array $row)
     {
+        dd($row);
         return new FacultyClassStudent([
             'name' => $row[0], // Assuming name is in the first column
             'roll_number' => $row[1], // Assuming roll number is in the second column

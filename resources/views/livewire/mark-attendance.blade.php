@@ -89,19 +89,19 @@
                         </button>
                     </div>
                 </div>
-                <button onclick="Livewire.dispatch('openModal', { component: 'faculty-class-student-form', arguments: {classId: {{ $facultyClass->id }}} })" class="lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-md border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
+                <button onclick="Livewire.dispatch('openModal', { component: 'faculty-class-student-form', arguments: {classId: {{ $facultyClass->id }}} })" class="lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
                     Add Student
                 </button>
                 <button wire:click="markAllExceptSelected('Present')"
-                        class=" lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-md border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
+                        class=" lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
                     Mark All Present Except Selected
                 </button>
                 <button wire:click="markSelected('Present')"
-                        class="lg:w-max md:w-max sm:w-max w-full bg-green/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-md border-[1px] border-green hover:bg-green transition ease-in duration-2000">Mark
+                        class="lg:w-max md:w-max sm:w-max w-full bg-green/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-green hover:bg-green transition ease-in duration-2000">Mark
                     Selected as Present
                 </button>
                 <button wire:click="markSelected('Absent')"
-                        class="lg:w-max md:w-max sm:w-max w-full bg-red/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-md border-[1px] border-red hover:bg-red transition ease-in duration-2000">Mark
+                        class="lg:w-max md:w-max sm:w-max w-full bg-red/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-red hover:bg-red transition ease-in duration-2000">Mark
                     Selected as Absent
                 </button>
             </div>
