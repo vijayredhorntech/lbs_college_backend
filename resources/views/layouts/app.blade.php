@@ -70,7 +70,8 @@
             </div>
 
         </div>
-
+        @livewire('slide-over-panel')
+        @livewire('wire-elements-modal')
         @livewireScripts
 
 

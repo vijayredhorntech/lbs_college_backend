@@ -21,6 +21,8 @@ class MarkAttendance extends Component
     public $presentCount = 0;
     public $absentCount = 0;
 
+    protected $listeners = ['studentAdded' => 'fetchStudents'];
+
     public function mount(FacultyClasses $facultyClass)
     {
         $this->facultyClass = $facultyClass;
@@ -35,16 +37,12 @@ class MarkAttendance extends Component
 
         // Fetch students based on the search query and the selected subject for the faculty class
         // Fetch students based on the subject ID and, optionally, search query
-        $this->students = Student::whereHas('subjects', function ($query) {
-            // The subject_id condition is always applied
-            $query->where('subject_id', $this->facultyClass->subject_id);
-        })
+        $this->students = $this->facultyClass->students()
             ->when($this->search, function ($query) {
                 // Apply search filter if a search term is entered
                 $query->where(function ($query) {
-                    $query->where('first_name', 'like', '%' . $this->search . '%')
-                        ->orWhere('last_name', 'like', '%' . $this->search . '%')
-                        ->orWhere('uni_roll_number', 'like', '%' . $this->search . '%');
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('roll_number', 'like', '%' . $this->search . '%');
                 });
             })
             ->with(['attendance' => function ($query) {

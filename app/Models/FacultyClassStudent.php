@@ -19,7 +19,7 @@ class FacultyClassStudent extends Model
         return $this->belongsTo(FacultyClasses::class);
     }
 
-    public function attendances()
+    public function attendance()
     {
         return $this->hasMany(ClassAttendance::class, 'student_id');
     }

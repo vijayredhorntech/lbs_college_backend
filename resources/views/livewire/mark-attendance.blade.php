@@ -89,6 +89,9 @@
                         </button>
                     </div>
                 </div>
+                <button onclick="Livewire.dispatch('openModal', { component: 'faculty-class-student-form', arguments: {classId: {{ $facultyClass->id }}} })" class="lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-md border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
+                    Add Student
+                </button>
                 <button wire:click="markAllExceptSelected('Present')"
                         class=" lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-md border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
                     Mark All Present Except Selected
@@ -125,8 +128,8 @@
                         <td class="border-[1px] border-primaryDark px-4 py-1.5">
                             <input type="checkbox" wire:model="selectedStudents" value="{{ $student->id }}">
                         </td>
-                        <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->full_name }}</td>
-                        <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->uni_roll_number }}</td>
+                        <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->name }}</td>
+                        <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->roll_number }}</td>
                         <td class=" text-{{ $attendance[$student->id] === 'Present' ? 'green' : 'red' }} border-[1px] border-primaryDark px-4 py-1.5 font-semibold">
                             {{ $attendance[$student->id] }}
                             <div class="flex gap-2">
