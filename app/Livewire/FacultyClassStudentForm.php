@@ -25,9 +25,11 @@ class FacultyClassStudentForm extends ModalComponent
 
     public function store()
     {
+
+        // roll number is unique
         $this->validate([
             'name' => 'required|string|max:255',
-            'roll_number' => 'required|string|max:255',
+            'roll_number' => 'required|string|max:255|unique:faculty_class_students,roll_number',
         ]);
 
         FacultyClassStudent::create([
@@ -56,14 +58,19 @@ class FacultyClassStudentForm extends ModalComponent
             'excelFile' => 'required|file|mimes:xlsx,xls', // Validate file type
         ]);
 
-        // Import the students from the Excel file
-        Excel::import(new StudentsImport($this->classId), $this->excelFile);
+        try {
+            // Import the students from the Excel file
+            Excel::import(new StudentsImport($this->classId), $this->excelFile);
 
-        // Reset the excelFile property
-        $this->excelFile = null;
+            // Reset the excelFile property
+            $this->excelFile = null;
 
-        // Set success message
-        $this->successMessage = 'Students imported successfully!';
+            // Set success message
+            $this->successMessage = 'Students imported successfully!';
+        } catch (\Exception $e) {
+            // Handle the error
+            $this->addError('excelFile', 'An error occurred while importing: ' . $e->getMessage());
+        }
 
         // Optional: Clear success message after a delay
         $this->dispatch('clearSuccessMessage', ['message' => $this->successMessage]);
