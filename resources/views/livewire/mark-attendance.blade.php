@@ -5,7 +5,7 @@
         <div
             class="relative bg-primaryDark px-4 py-2 rounded-sm  border-[1px] border-primaryDark flex justify-between items-center">
                 <span class="text-xl text-white/90 font-bold mb-1">
-                   Mark Attendance
+                   Student Attendance
                 </span>
 
         </div>

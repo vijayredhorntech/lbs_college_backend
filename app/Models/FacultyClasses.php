@@ -39,4 +39,9 @@ class FacultyClasses extends Model
     {
         return $this->hasMany(ClassAttendance::class, 'faculty_class_id');
     }
+
+    public function students()
+    {
+        return $this->hasMany(FacultyClassStudent::class, 'faculty_classes_id');
+    }
 }
