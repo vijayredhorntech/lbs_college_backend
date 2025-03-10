@@ -20,6 +20,16 @@
                         <input id="subjectCode" placeholder="Subject Code" type="text"  wire:model="form.code" class="px-4 py-2.5 text-primaryDark placeholder-primaryDark/60 rounded-[3px] border-[1px] border-primaryDark/60 focus:ring-0 focus:outline-none focus:border-primaryDark hover:border-primaryDark">
                         {{--                    @error('classTimeStart') <span class="text-red/70 text-sm">{{ $message }}</span> @enderror--}}
                     </div>
+                    
+                    <div class="w-full flex flex-col gap-1">
+                        <label for="course" class="font-semibold text-sm text-black">Course</label>
+                        <select id="course" wire:model="form.course_id" class="px-4 py-2.5 text-primaryDark placeholder-primaryDark/60 rounded-[3px] border-[1px] border-primaryDark/60 focus:ring-0 focus:outline-none focus:border-primaryDark hover:border-primaryDark">
+                            <option value="">Select Course</option>
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="w-full flex flex-col gap-1">
                         <label for="subjectDescription" class="font-semibold text-sm text-black">Subject Description</label>

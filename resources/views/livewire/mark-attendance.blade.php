@@ -41,11 +41,16 @@
                 </div>
             </div>
 
+            <!-- Class Year -->
+            @if($facultyClass->class_year)
+            <div class="mt-4 p-2 bg-blue-100 rounded-md">
+                <span class="font-semibold text-primaryDark">Class/Year: 
+                    <span class="font-normal italic">{{ $facultyClass->class_year }}</span>
+                </span>
+            </div>
+            @endif
 
-
-
-
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 py-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-2 py-4">
                 <!-- Students Card -->
                 <div class="bg-gradient-to-r from-primaryDark/80 to-primaryDark/20 p-6 rounded-lg shadow-lg flex items-center justify-between text-white">
                     <div>
@@ -74,6 +79,15 @@
                         <i class="fa fa-xmark text-red text-3xl"></i>
                     </div>
                 </div>
+                <div class="bg-gradient-to-r from-yellow-500/80 to-yellow-500/20 p-6 rounded-lg shadow-lg flex items-center justify-between text-white">
+                    <div>
+                        <div class="text-xs font-semibold uppercase tracking-wider">Leave</div>
+                        <div class="text-3xl font-bold">{{ $leaveCount }}</div>
+                    </div>
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                        <i class="fa fa-calendar-minus text-yellow-500 text-3xl"></i>
+                    </div>
+                </div>
             </div>
 
 
@@ -92,17 +106,21 @@
                 <button onclick="Livewire.dispatch('openModal', { component: 'faculty-class-student-form', arguments: {classId: {{ $facultyClass->id }}} })" class="lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
                     Add Student
                 </button>
-                <button wire:click="markAllExceptSelected('Present')"
+                <button wire:click="markAllExceptSelected('present')"
                         class=" lg:w-max md:w-max sm:w-max w-full bg-blue/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-blue hover:bg-blue transition ease-in duration-2000">
                     Mark All Present Except Selected
                 </button>
-                <button wire:click="markSelected('Present')"
+                <button wire:click="markSelected('present')"
                         class="lg:w-max md:w-max sm:w-max w-full bg-green/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-green hover:bg-green transition ease-in duration-2000">Mark
                     Selected as Present
                 </button>
-                <button wire:click="markSelected('Absent')"
+                <button wire:click="markSelected('absent')"
                         class="lg:w-max md:w-max sm:w-max w-full bg-red/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-red hover:bg-red transition ease-in duration-2000">Mark
                     Selected as Absent
+                </button>
+                <button wire:click="markSelected('leave')"
+                        class="lg:w-max md:w-max sm:w-max w-full bg-yellow-500/80 rounded-[3px] text-white px-2 py-0.5 font-semibold text-sm border-[1px] border-yellow-500 hover:bg-yellow-500 transition ease-in duration-2000">Mark
+                    Selected as Leave
                 </button>
             </div>
 
@@ -130,16 +148,22 @@
                         </td>
                         <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->name }}</td>
                         <td class="border-[1px] border-primaryDark px-4 py-1.5">{{ $student->roll_number }}</td>
-                        <td class=" text-{{ $attendance[$student->id] === 'Present' ? 'green' : 'red' }} border-[1px] border-primaryDark px-4 py-1.5 font-semibold">
-                            {{ $attendance[$student->id] }}
+                        <td class="border-[1px] border-primaryDark px-4 py-1.5 font-semibold">
+                            <span class="text-{{ $attendance[$student->id] === 'present' ? 'green' : ($attendance[$student->id] === 'absent' ? 'red' : 'yellow-500') }}">
+                                {{ ucfirst($attendance[$student->id]) }}
+                            </span>
                             <div class="flex gap-2">
-                                <button wire:click="markAttendance({{ $student->id }}, 'Present')"
+                                <button wire:click="markAttendance({{ $student->id }}, 'present')"
                                         class=" bg-green/80 rounded-[3px] text-white h-8 w-8 flex justify-center items-center rounded-full font-semibold text-md border-[1px] border-green hover:bg-green transition ease-in duration-2000">
                                     <i class="fa fa-check"></i>
                                 </button>
-                                <button wire:click="markAttendance({{ $student->id }}, 'Absent')"
+                                <button wire:click="markAttendance({{ $student->id }}, 'absent')"
                                         class=" bg-red/80 rounded-[3px] text-white h-8 w-8 flex justify-center items-center rounded-full font-semibold text-md border-[1px] border-red hover:bg-red transition ease-in duration-2000">
                                     <i class="fa fa-xmark"></i>
+                                </button>
+                                <button wire:click="markAttendance({{ $student->id }}, 'leave')"
+                                        class=" bg-yellow-500/80 rounded-[3px] text-white h-8 w-8 flex justify-center items-center rounded-full font-semibold text-md border-[1px] border-yellow-500 hover:bg-yellow-500 transition ease-in duration-2000">
+                                    <i class="fa fa-calendar-minus"></i>
                                 </button>
                             </div>
                         </td>

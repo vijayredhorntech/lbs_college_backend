@@ -16,9 +16,11 @@ class FacultyClassForm extends Component
     public $classTimeEnd;
     public $classDays = [];
     public $facultyId;
+    public $classYear;
 
     public $subjects = [];
     public $faculties = [];
+    public $classYearOptions = ['1st Year', '2nd Year', '3rd Year', 'Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6'];
 
     public $isEditMode = false;
 
@@ -33,6 +35,7 @@ class FacultyClassForm extends Component
             $this->classTimeEnd = $facultyClass->class_time_end;
             $this->classDays = $facultyClass->class_days;
             $this->facultyId = $facultyClass->faculty_id;
+            $this->classYear = $facultyClass->class_year;
         }
 
         if (Auth::user()->hasRole('admin')) {
@@ -86,6 +89,7 @@ class FacultyClassForm extends Component
             'classTimeEnd' => 'required|date_format:H:i',
             'classDays' => 'required|array',
             'facultyId' => 'required|exists:faculties,id',
+            'classYear' => 'nullable|string',
         ]);
 
         FacultyClasses::updateOrCreate(
@@ -96,11 +100,12 @@ class FacultyClassForm extends Component
                 'class_time_end' => $this->classTimeEnd,
                 'class_days' => $this->classDays,
                 'faculty_id' => $this->facultyId,
+                'class_year' => $this->classYear,
             ]
         );
 
         session()->flash('message', $this->isEditMode ? 'Class updated successfully.' : 'Class created successfully.');
-        $this->reset(['facultyClassId', 'subjectId', 'classTimeStart', 'classTimeEnd', 'classDays', 'facultyId']);
+        $this->reset(['facultyClassId', 'subjectId', 'classTimeStart', 'classTimeEnd', 'classDays', 'facultyId', 'classYear']);
     }
 
 }

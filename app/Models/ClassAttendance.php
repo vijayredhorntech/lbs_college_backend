@@ -13,7 +13,7 @@ class ClassAttendance extends Model
     protected $fillable = [
         'faculty_class_id',
         'student_id',
-        'attended',
+        'status',
         'lecture_date',
     ];
 

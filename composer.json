@@ -5,7 +5,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "dyrynda/laravel-model-uuid": "^8.0",
         "garygreen/pretty-routes": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
@@ -16,7 +16,7 @@
         "laravelcm/livewire-slide-overs": "^1.0",
         "livewire/livewire": "^3.0",
         "maatwebsite/excel": "^3.1",
-        "masmerise/livewire-toaster": "^2.1",
+        "masmerise/livewire-toaster": "^2.0",
         "power-components/livewire-powergrid": "^5.1",
         "rappasoft/laravel-authentication-log": "^4.0",
         "rappasoft/laravel-livewire-tables": "^3.2",

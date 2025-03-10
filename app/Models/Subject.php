@@ -22,10 +22,16 @@ class Subject extends Model
         'name',
         'code',
         'description',
+        'course_id',
     ];
 
     public function faculties()
     {
         return $this->belongsToMany(Faculty::class, 'faculty_subjects');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
     }
 }

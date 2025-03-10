@@ -16,6 +16,7 @@ class FacultyClasses extends Model
         'class_time_end',
         'class_days',
         'faculty_id',
+        'class_year',
     ];
 
     protected $casts = [

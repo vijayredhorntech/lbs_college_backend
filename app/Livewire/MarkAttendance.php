@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Student;
 use App\Models\FacultyClasses;
+use App\Models\ClassAttendance;
+use App\Models\FacultyClassStudent;
 use Masmerise\Toaster\Toastable;
 
 class MarkAttendance extends Component
@@ -20,6 +22,7 @@ class MarkAttendance extends Component
 
     public $presentCount = 0;
     public $absentCount = 0;
+    public $leaveCount = 0;
 
     protected $listeners = ['studentAdded' => 'fetchStudents'];
 
@@ -34,9 +37,9 @@ class MarkAttendance extends Component
     {
         $this->presentCount = 0;
         $this->absentCount = 0;
+        $this->leaveCount = 0;
 
         // Fetch students based on the search query and the selected subject for the faculty class
-        // Fetch students based on the subject ID and, optionally, search query
         $this->students = $this->facultyClass->students()
             ->when($this->search, function ($query) {
                 // Apply search filter if a search term is entered
@@ -45,16 +48,29 @@ class MarkAttendance extends Component
                         ->orWhere('roll_number', 'like', '%' . $this->search . '%');
                 });
             })
-            ->with(['attendance' => function ($query) {
-                $query->where('faculty_class_id', $this->facultyClass->id)
-                    ->where('lecture_date', $this->attendanceDate);
-            }])
             ->get();
-        // Initialize attendance array and count present/absent students
+            
+        // Initialize attendance array and count present/absent/leave students
         foreach ($this->students as $student) {
-            $this->attendance[$student->id] = $student->attendance->first() ? ($student->attendance->first()->attended ? 'Present' : 'Absent') : 'Present';
-            $this->presentCount += $student->attendance->first() ? ($student->attendance->first()->attended ? 1 : 0) : 1;
-            $this->absentCount += $student->attendance->first() ? ($student->attendance->first()->attended ? 0 : 1) : 0;
+            // Get attendance record for this student
+            $attendanceRecord = ClassAttendance::where('faculty_class_id', $this->facultyClass->id)
+                ->where('student_id', $student->id)
+                ->where('lecture_date', $this->attendanceDate)
+                ->first();
+                
+            $this->attendance[$student->id] = $attendanceRecord ? $attendanceRecord->status : 'present';
+            
+            if ($attendanceRecord) {
+                if ($attendanceRecord->status === 'present') {
+                    $this->presentCount++;
+                } elseif ($attendanceRecord->status === 'absent') {
+                    $this->absentCount++;
+                } elseif ($attendanceRecord->status === 'leave') {
+                    $this->leaveCount++;
+                }
+            } else {
+                $this->presentCount++;
+            }
         }
     }
 
@@ -63,15 +79,25 @@ class MarkAttendance extends Component
         $this->fetchStudents();
     }
 
-    public function markAttendance(Student $student, $status)
+    public function markAttendance($studentId, $status)
     {
+        // Get the student
+        $student = FacultyClassStudent::find($studentId);
+        
+        if (!$student) {
+            $this->error('Student not found');
+            return;
+        }
+        
         // Update or create attendance record
-        $student->attendance()->updateOrCreate([
+        ClassAttendance::updateOrCreate([
             'faculty_class_id' => $this->facultyClass->id,
+            'student_id' => $student->id,
             'lecture_date' => $this->attendanceDate,
         ], [
-            'attended' => $status == 'Present' ? 1 : 0,
+            'status' => $status,
         ]);
+        
         $this->success('Attendance marked successfully');
         $this->fetchStudents();
     }
@@ -79,8 +105,7 @@ class MarkAttendance extends Component
     public function markSelected($status)
     {
         foreach ($this->selectedStudents as $studentId) {
-            $student = Student::find($studentId);
-            $this->markAttendance($student, $status);
+            $this->markAttendance($studentId, $status);
         }
         $this->fetchStudents();
     }
@@ -89,7 +114,7 @@ class MarkAttendance extends Component
     {
         foreach ($this->students as $student) {
             if (!in_array($student->id, $this->selectedStudents)) {
-                $this->markAttendance($student, $status);
+                $this->markAttendance($student->id, $status);
             }
         }
         $this->fetchStudents();

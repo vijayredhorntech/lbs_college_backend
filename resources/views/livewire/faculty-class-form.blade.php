@@ -35,6 +35,17 @@
                         </select>
                         @error('subjectId') <span class="text-red/70 text-sm">{{ $message }}</span> @enderror
                     </div>
+                    
+                    <div class="w-full flex flex-col gap-1">
+                        <label for="classYear" class="font-semibold text-sm text-black">Class/Year</label>
+                        <select id="classYear" wire:model="classYear" class="px-4 py-2.5 text-primaryDark placeholder-primaryDark/60 rounded-[3px] border-[1px] border-primaryDark/60 focus:ring-0 focus:outline-none focus:border-primaryDark hover:border-primaryDark">
+                            <option value="">Select Class/Year</option>
+                            @foreach($classYearOptions as $option)
+                                <option value="{{ $option }}">{{ $option }}</option>
+                            @endforeach
+                        </select>
+                        @error('classYear') <span class="text-red/70 text-sm">{{ $message }}</span> @enderror
+                    </div>
 
                     <div class="w-full flex flex-col gap-1">
                         <label for="classTimeStart" class="font-semibold text-sm text-black">Class Time Start</label>

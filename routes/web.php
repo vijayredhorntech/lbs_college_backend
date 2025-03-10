@@ -47,6 +47,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Change Password Route
+    Route::get('/change-password', \App\Livewire\ChangePassword::class)->name('change-password');
 
     Route::group(['prefix' => 'student'], function () {
         Route::get('/list', [StudentController::class, 'index'])->name('student-list');
